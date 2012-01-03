@@ -1,4 +1,11 @@
 #!/usr/bin/perl
+#
+# plotsensors
+#
+# Uses 'sensors' and 'nvidia-settings' to plot the values of the PS sensors.
+#
+# Jaroslav K, 2011
+#
 
 use strict;
 
@@ -30,6 +37,7 @@ while (1) {
 
     }
 
+    # Gets the GPU temp. Requres nvidia-settings which probably only works for Nvidia cards.
     my @nvQuery = `nvidia-settings -q gpucoretemp`;
     foreach (@nvQuery) {
 	if ($_ =~ /Attribute 'GPUCoreTemp' \(.*\): (\d+)/) {
@@ -37,13 +45,20 @@ while (1) {
 	}
     }
 
-    no_plot($PLOT, \@valuesTempCPU,\@valuesTempSIO,\@valuesTempAmbient,
+    plot($PLOT, \@valuesTempCPU,\@valuesTempSIO,\@valuesTempAmbient,
 	 \@valuesRpm,\@valuesTempGPU);
-    @valuesTempCPU=();
-    @valuesTempSIO=();
-    @valuesTempAmbient=();
-    @valuesRpm=();
-    @valuesTempGPU=();
+
+    # If you wish to save the values to a file then comment out the call to plot() above and
+    # uncomment the following lines instead.
+
+    # no_plot($PLOT, \@valuesTempCPU,\@valuesTempSIO,\@valuesTempAmbient,
+    # 	 \@valuesRpm,\@valuesTempGPU);
+    # @valuesTempCPU=();
+    # @valuesTempSIO=();
+    # @valuesTempAmbient=();
+    # @valuesRpm=();
+    # @valuesTempGPU=();
+
     sleep(1);
 }
 
