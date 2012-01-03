@@ -1,0 +1,9 @@
+### plotsensors README ###
+
+Uses 'sensors' and 'nvidia-settings' to plot the values of the PS sensors so it requires that you have these commands installed.
+
+If you don't have an Nvidia card then comment out the appropriate line. Note that 'nvidia-settings' does not provide the temperature for some cards, in such case gnuplot will warn that there are no valid data points. You can check if you can obtain the GPU temperature by running
+
+nvidia-settings -q gpucoretemp
+
+The output of 'sensors' varies from system to system which also may result in warning messages. 
